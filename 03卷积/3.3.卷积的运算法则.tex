@@ -1,0 +1,55 @@
+\section{卷积的运算法则}
+
+本节特别把离散卷积和连续卷积的运算法则放在一起，方便查询。
+
+~
+
+{\bf 交换律}
+\begin{align*}
+&a\left( t \right) \ast b\left( t \right) =b\left( t \right) \ast a\left( t \right) \\
+&a\left[ n \right] \ast b\left[ n \right] =b\left[ n \right] \ast a\left[ n \right]
+\end{align*}
+
+{\bf 结合律}
+\begin{align*}
+&\left( a\left( t \right) \ast b\left( t \right) \right) \ast c\left( t \right) =a\left( t \right) \ast \left( b\left( t \right) \ast c\left( t \right) \right) \\
+&\left( a\left[ n \right] \ast b\left[ n \right] \right) \ast c\left[ n \right] =a\left[ n \right] \ast \left( b\left[ n \right] \ast c\left[ n \right] \right)
+\end{align*}
+
+{\bf 分配律}
+\begin{align*}
+&a\left( t \right) \ast \left( b\left( t \right) +c\left( t \right) \right) =a\left( t \right) \ast b\left( t \right) +a\left( t \right) \ast c\left( t \right) \\
+&a\left[ n \right] \ast \left( b\left[ n \right] +c\left[ n \right] \right) =a\left[ n \right] \ast b\left[ n \right] +a\left[ n \right] \ast c\left[ n \right]
+\end{align*}
+
+{\bf 时移律}
+\begin{align*}
+&a\left( t-c \right) \ast b\left( t \right) =a\left( t \right) \ast b\left( t-c \right) \\
+&a\left[ n-i \right] \ast b\left[ n \right] =a\left[ n \right] \ast b\left[ n-i \right]
+\end{align*}
+
+{\bf 冲激的卷积}（冲激卷积会造成时移，相当于一个延时器）
+\begin{align*}
+&a\left( t \right) \ast \delta \left( t-c \right) =a\left( t-c \right) \\
+&a\left[ n \right] \ast \delta \left[ n-i \right] =a\left[ n-i \right]
+\end{align*}
+
+{\bf 阶跃的卷积}（阶跃卷积是作积分，相当于通过一个积分器）
+\[
+a\left( t \right) \ast u\left( t \right) =\int_{-\infty}^t{a\left( \tau \right) d\tau}
+\]
+
+{\bf 导数律}
+\begin{align*}
+&\frac{d}{dt}\left[ a\left( t \right) \ast b\left( t \right) \right] =a'\left( t \right) \ast b\left( t \right) =a\left( t \right) \ast b'\left( t \right) \\
+&\frac{d^2}{dt^2}\left[ a\left( t \right) \ast b\left( t \right) \right] =a'\left( t \right) \ast b'\left( t \right)
+\end{align*}
+
+{\bf 积分律}
+\[
+\int_{-\infty}^t{\left[ a\left( \tau \right) \ast b\left( \tau \right) \right] d\tau}=\left[ \int_{-\infty}^t{a\left( \tau \right) d\tau} \right] \ast b\left( t \right) =a\left( t \right) \ast \left[ \int_{-\infty}^t{b\left( \tau \right) d\tau} \right]
+\]
+
+
+
+

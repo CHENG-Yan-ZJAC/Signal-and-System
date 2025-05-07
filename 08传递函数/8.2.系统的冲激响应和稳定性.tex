@@ -1,0 +1,89 @@
+\section{系统的冲激响应及稳定性}
+
+本节讨论传递函数的用途之一——稳定性判断。
+
+本节要点：
+\begin{itemize}
+    \item 充分理解系统响应函数和传递函数本质上的一致性；
+    \item 理解稳定的定义；
+    \item 理解稳定性判据；
+    \item 掌握使用稳定性判据判断系统稳定性。
+\end{itemize}
+
+%============================================================
+\subsection{系统的冲激响应及稳定性要求}
+
+假设LTI系统的传递函数$H\left( s \right) $，对于单位阶跃信号$\delta \left( t \right) $的响应：
+\begin{align*}
+&\because \delta \left( t \right) \leftrightarrow 1 \\
+&\therefore Y\left( s \right) =H\left( s \right) \cdot 1=H\left( s \right) \\
+&\therefore y\left( t \right) =h\left( t \right)
+\end{align*}
+可见，LTI系统对于冲激信号的响应即为传递函数的iLT，两者是等价的。
+
+\begin{definition}[系统的稳定性]
+当一个LTI系统对于冲激信号，当时间足够长后，输出为0，我们称{\bf 系统稳定}（stable），如果输出不为0但有界，称系{\bf 统临界稳定}（marginally stable），如果输出发散，称{\bf 系统不稳定}（unstable）。
+\[
+\underset{t\rightarrow +\infty}\lim y\left( t \right) =\begin{cases}
+	0 &\mathrm{stable}\\
+	C &\mathrm{marginal} \,\, \mathrm{stable}\\
+	\infty &\mathrm{unstable}\\
+\end{cases}
+\]
+由于零状态LTI系统的冲激响应为$h\left( t \right) $，所以系统输出的稳定性也可以表示为冲激响应函数的敛散性：
+\[
+\underset{t\rightarrow +\infty}\lim h\left( t \right) =\begin{cases}
+	0 &\mathrm{stable}\\
+	C &\mathrm{marginal} \,\, \mathrm{stable}\\
+	\infty &\mathrm{unstable}\\
+\end{cases}
+\]
+\end{definition}
+
+通俗来讲，就是当输入结束后，输出能不能降到0。
+
+%============================================================
+\subsection{系统的稳定性判据}
+
+\begin{theorem}[LTI系统的稳定性判据]
+假设零状态LTI系统有传递函数：
+\[
+H\left( s \right) =B\frac{\left( s-z_1 \right) \left( s-z_2 \right) \cdots \left( s-z_m \right)}{\left( s-p_1 \right) \left( s-p_2 \right) \cdots \left( s-p_n \right)} \qquad m<n
+\]
+则$H\left( s \right) $的极点反应了系统冲激响应的形状，具体来说有：
+\begin{itemize}
+    \item 对于实数单极点$p$，冲激响应包含增益项$ce^{pt}$；
+    \item 对于复数共轭极点$p,\bar{p}$，冲激响应包含振荡项$2\left| c \right|e^{\sigma t}\cos \left( \omega t+\angle c \right) $；
+    \item 对于重复极点，冲激响应包含$t$次方的多项式。
+\end{itemize}
+当$H\left( s \right) $所有极点满足$\mathrm{Re}\left[ p_i \right] <0$时，即均出现在零极图的左半边，对冲激信号的输出有$\underset{t\rightarrow \infty}\lim y\left( t \right) =0$，即系统为稳定系统。
+当$H\left( s \right) $所有单极点满足$\mathrm{Re}\left[ p_i \right] \leqslant 0$，重复极点满足$\mathrm{Re}\left[ p_i \right] <0$时，称系统为临界稳定。
+\end{theorem}
+
+此判据证明过程略。
+
+稳定系统对于冲激信号的输出一定会收敛到0。
+临界稳定系统对于冲激信号的输出会稳定在一个非0值，或在一非0值振荡。
+不稳定系统对于冲激信号的输出一定会发散到无穷大。
+
+我们得到了传递函数的一个非常有用的用途——判断系统稳定性。
+原本稳定性判断需要判断$\underset{t\rightarrow +\infty}\lim h\left( t \right) $的敛散性，这不但需要求解微分方程，而且还需要求极限。
+但借助LT，我们可以通过考察传递函数的极点判断系统稳定性，方便了许多。
+
+%============================================================
+\subsection{劳恩——赫尔维茨判据}
+
+上述稳定性判据需要求解系统传递函数的极点，即$A\left( s \right) =0$的根。
+劳恩——赫尔维茨判据可以在不求解极点的情况下判断系统的稳定性。
+
+判断步骤：
+\begin{enumerate}
+    \item 构造劳恩表；
+    \item 第二列均大于0，表示系统绝对稳定；
+    \item 第二列有0的项，表示系统临界稳定；
+    \item 第二列有小于0的项，表示系统不稳定。
+\end{enumerate}
+
+
+
+

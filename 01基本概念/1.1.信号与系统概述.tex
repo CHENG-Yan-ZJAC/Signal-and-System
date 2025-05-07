@@ -1,0 +1,90 @@
+\section{信号与系统概述}
+
+本节介绍信号和系统的概念。
+
+本节要点：
+\begin{itemize}
+    \item 掌握信号、系统及其相关概念。
+\end{itemize}
+
+%============================================================
+\subsection{信号的概念}
+
+\begin{definition}[信号]
+在数学的角度，{\bf 信号}（signal）就是函数，自变量可以是时间、空间等，可以是一元函数，也可以是多元函数。
+本书讨论的信号是以时间为自变量的一元函数，通常记为$x\left( t \right) $。
+\end{definition}
+
+物理意义上，信号指的是一个物体的状态。
+若物体是一实物，则状态可以是物体的位移、速度。
+若物体是一场，则状态可以是场强、电压、电流。
+总之，信号描述的是一个物体的状态随时间的变化。
+
+可以定义信号的{\bf 能量}和{\bf 功率}：
+\begin{align*}
+&E=\int_{t_1}^{t_2}{\left| x\left( t \right) \right|^2dt} \\
+&P=\frac{1}{t_2-t_1}\int_{t_1}^{t_2}{\left| x\left( t \right) \right|^2dt}
+\end{align*}
+从能量和功率的角度，信号可以分有限能量信号$E_{\infty}<\infty $、有限功率信号$P_{\infty}<\infty $和能量功率均无限的信号。
+而且易得，如果有限能量必然功率为0，如果有限功率必然能量无穷。
+
+这个“功率”和“能量”是纯粹信号与系统上的概念。
+虽然和具体物理意义无关，但还是有抽象层面的关系，如弹性势能$E=\frac{1}{2}kl^2$，动能$E=\frac{1}{2}mv^2$。
+
+~
+
+信号与系统中一个重要的概念就是信号的变换，对于以时间为自变量的信号指的就是时间轴的变换：
+\begin{itemize}
+    \item {\bf 时移}（time shift）：$x\left( t-t_0 \right) $，表示信号延迟，或者波形右移。
+    \item {\bf 尺变}（time scaling）：$x\left( at \right) $，$a>1$表示信号变快，波形压缩，$a<1$表示信号变慢，波形伸长，$a=-1$表示信号{\bf 反转}（time reversal）。
+    \item {\bf 周期}：若信号有$x\left( t+T \right) =x\left( t \right) $，则称为{\bf 周期信号}（periodic signal），最小正值$T$称为{\bf 基波周期}（fundamental period）。
+    \item {\bf 奇偶性}：若信号有$x\left( t \right) =x\left( -t \right) $，称为{\bf 偶信号}（even），若$x\left( t \right) =-x\left( -t \right) $，称为{\bf 奇信号}（odd），易得，所有信号都可以分解为奇信号和偶信号的和：
+    \begin{align*}
+    &x_{even}\left( t \right) =\frac{1}{2}\left[ x\left( t \right) +x\left( -t \right) \right] \\
+    &x_{odd}\left( t \right) =\frac{1}{2}\left[ x\left( t \right) -x\left( -t \right) \right]
+    \end{align*}
+\end{itemize}
+
+\begin{tcolorbox}
+注，$x\left( t \right) =C$是周期信号，但没有基波周期。
+\end{tcolorbox}
+
+%============================================================
+\subsection{系统和响应的概念}
+
+\begin{definition}[系统]
+{\bf 系统}（system）是组件与端口的互连，通过这些端口可以输出输入信息。
+\end{definition}
+
+我们称一组描述输入输出之间相互关系的数学方程为{\bf 系统的数学模型}（mathematical model）。
+数学模型是一种描述系统的数学工具，好的数学模型是需要在精确性和简单性之有良好的平衡，两大基本数学模型：
+\begin{itemize}
+    \item {\bf 输入输出模型}（input/output model）：描述输入信号和输出信号之间关系，具体分：
+    \begin{itemize}
+        \item {\bf 微分方程}（differential equation）和{\bf 差分方程}（difference equation），
+        \item {\bf 卷积模型}（convolution model），
+        \item {\bf 傅里叶变换}（Fourier transform），
+        \item {\bf 传递函数}（transfer function）；
+    \end{itemize}
+    \item {\bf 状态模型}（state model）：描述输入、状态、输出之间关系。
+\end{itemize}
+其中，傅里叶变换可视为传递函数的一个特例。
+
+\begin{definition}[响应]
+对于一个特定的输入或系统本身状态，系统会产生一个特定的输出，称为{\bf 响应}（response）。根据引起响应的不同原因，响应可以分为：
+\begin{itemize}
+    \item {\bf 零输入响应}（zero input）：系统响应仅由其初始状态引起，输入始终为0；
+    \item {\bf 零状态响应}（zero state）：系统初始状态为0，响应仅由输入引发。
+\end{itemize}
+\end{definition}
+
+\begin{tcolorbox}
+为简化讨论，本笔记讨论只有一个输入和一个输出的系统，且系统默认都是零状态响应。
+\end{tcolorbox}
+
+
+
+
+
+
+

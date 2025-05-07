@@ -1,0 +1,132 @@
+\section{LTI系统的差分方程模型}
+
+本节讨论离散系统的差分方程模型。
+
+本节要点：
+\begin{itemize}
+    \item 掌握差分方程的概念；
+    \item 理解差分方程的物理意义；
+    \item 掌握差分方程的求解思路；
+    \item 编写Python函数求解n阶线性常系数差分方程。
+\end{itemize}
+
+%============================================================
+\subsection{差分方程的概念}
+
+如果离散LTI系统有限维度，可以用线性常系数差分方程描述如下：
+\[
+y\left[ n \right] +\sum_{i=1}^N{A_iy\left[ n-i \right]}=\sum_{i=0}^M{B_ix\left[ n-i \right]}
+\]
+即系统某刻的输出$y\left[ n \right] $，由此刻的输入$x\left[ n \right] $和之前的输入$x\left[ n-i \right] $和之前的输出$y\left[ n-i \right] $，一共$N+M+1$个量共同决定。
+通常配合初始条件，通过递归计算的方法就可以解出$y\left[ n \right] $。
+这样的系统称为{\bf 递归型离散系统}（recursive discrete-time system）或{\bf 递归型数字滤波器}（recursive digital filter）。
+
+%============================================================
+\subsection{差分方程的物理意义}
+
+以一阶差分方程为例：
+\[
+y\left[ n \right] +Ay\left[ n-1 \right] =Bx\left[ n \right]
+\]
+表示系统当刻输出$y\left[ n \right] $是当刻输入$x\left[ n \right] $和前刻输出$y\left[ n-1 \right] $的线性叠加。
+
+这里要注意：
+\begin{itemize}
+    \item $B$：对系统稳定性来讲没有任何关系，只是表明系统是放大器还是衰减器；
+    \item $y\left[ n-1 \right] $：表示系统内部对能量的回响；
+    \item $A$：表示这种回响以反馈的方式造成混响，决定了系统的稳定性。
+\end{itemize}
+还要特别注意，这种回响不是一次性的，它造成的叠加输出在后一刻继续以混响的方式反馈于系统。
+如果系统是LTI，则这种回响是关于时间的一个等比数列，造成的混响就是这个等比数列的和。
+
+%============================================================
+\subsection{一阶差分方程的求解}
+
+对于一阶差分方程$y\left[ n \right] +Ay\left[ n-1 \right] =Bx\left[ n \right] $，可以通过不断递归求解，这里直接给出解：
+\[
+y\left[ n \right] =\left( -A \right) ^ny\left[ 0 \right] +\sum_{i=1}^n{\left( -A \right) ^{n-1}Bx\left[ i \right]} \qquad n=1,2,\cdots
+\]
+
+%============================================================
+\subsection{Python应用——n阶差分方程的实现}
+
+这里，我们编写一个Python函数（my\_diff）用以求解n阶差分方程：
+\[
+y\left[ n \right] +\sum_{i=1}^N{A_iy\left[ n-i \right]}=B_0x\left[ n \right] +\sum_{i=1}^M{B_ix\left[ n-i \right]}
+\]
+
+已知（同时也是函数的参数）：
+\begin{itemize}
+    \item 系数（按照差分方程的系数排序）：
+    \[
+    A_1,A_2,\cdots ,A_N,B_0,B_1,B_2,\cdots ,B_M
+    \]
+    \item 初始条件（按时间从最远点到最近点排序）：
+    \[
+    y\left[ -N \right] ,\cdots ,y\left[ -1 \right] ,x\left[ -M \right] ,\cdots ,x\left[ -1 \right]
+    \]
+    \item 输入信号序列：
+    \[
+    x\left[ 1 \right] ,x\left[ 2 \right] ,\cdots ,x\left[ n \right]
+    \]
+\end{itemize}
+取$y\left[ 1 \right] ,y\left[ 2 \right] $观察：
+\begin{align*}
+y\left[ 1 \right] =&A_1y\left[ -N \right] +A_2y\left[ -N+1 \right] \cdots A_{N-1}y\left[ -2 \right] +A_Ny\left[ -1 \right] + \\
+&B_1x\left[ -M \right] +B_2x\left[ -M+1 \right] \cdots B_{M-1}x\left[ -2 \right] +B_Mx\left[ -1 \right] + \\
+&Bx\left[ 1 \right] \\
+y\left[ 2 \right] =&A_1y\left[ -N+1 \right] +A_2y\left[ -N+2 \right] \cdots A_{N-1}y\left[ -1 \right] +A_Ny\left[ 1 \right] + \\
+&B_1x\left[ -M+1 \right] +B_2x\left[ -M+2 \right] \cdots B_{M-1}x\left[ -1 \right] +B_Mx\left[ 1 \right] + \\
+&Bx\left[ 2 \right]
+\end{align*}
+
+设计参数：
+\begin{itemize}
+    \item An：$N$维向量，表示$A_1,A_2,\cdots ,A_N$；
+    \item Yn：$N$维向量，表示输出信号的初始值$y\left[ -1 \right] ,y\left[ -2 \right] ,\cdots ,y\left[ -N \right] $；
+    \item Bm：$M$维向量，表示$B_1,B_2,\cdots ,B_M$；
+    \item Xm：$M$维向量，表示输入信号的初始值$x\left[ -1 \right] ,x\left[ -2 \right] ,\cdots ,x\left[ -M \right] $；
+    \item b：标量，表示$B_0$；
+    \item X：表示输入信号$x\left[ 1 \right] ,x\left[ 2 \right] ,\cdots ,x\left[ n \right] $。
+\end{itemize}
+
+过程注解：
+\begin{enumerate}
+    \item 将Yn和Xm翻转，以匹配An和Bm；
+    \item 构造输出Y，和X一样长度，填充0；
+    \item 计算每个Y[i]，期间更新Yn和Xm；
+    \item 返回Y。
+\end{enumerate}
+
+注意：
+\begin{itemize}
+    \item An和Yn的长度必须一致；
+    \item Bm和Xm的长度必须一致；
+    \item b是标量；
+    \item 最终输出信号Y的长度由输入信号X决定。
+\end{itemize}
+
+\begin{python}
+def my_diff(
+        An:np.ndarray, Yn:np.ndarray,
+        Bm:np.ndarray, Xm:np.ndarray,
+        b:float,
+        X:np.ndarray
+        ) -> np.ndarray:
+
+    Yn = np.flipud(Yn)
+    Xm = np.flipud(Xm)
+    Y  = np.zeros_like(X)
+
+    for i in range(X.shape[0]):
+        Y[i] = b*X[i] + np.dot(Bm, Xm) - np.dot(An, Yn)
+        Yn = np.append(Yn, Y[i])[1:]
+        Xm = np.append(Xm, X[i])[1:]
+        pass
+
+    return Y
+\end{python}
+
+
+
+

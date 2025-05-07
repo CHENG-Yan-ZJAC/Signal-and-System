@@ -1,0 +1,135 @@
+\section{拉普拉斯变换}
+
+本节介绍拉普拉斯变换。
+
+本节要点：
+\begin{itemize}
+    \item 掌握拉普拉斯变换的定义；
+    \item 了解拉普拉斯变换的性质。
+\end{itemize}
+
+%============================================================
+\subsection{拉普拉斯变换的概念}
+
+\begin{definition}[拉普拉斯变换]
+若信号$x\left( t \right) $满足积分$\int_{-\infty}^{+\infty}{x\left( t \right) e^{-st}dt}$收敛，其中$s=\sigma +i\omega $为复数，则称该积分为{\bf $x\left( t \right) $的拉普拉斯变换}（Laplace Transform，LT），记为$X\left( s \right) $，即：
+\[
+X\left( s \right) =\int_{-\infty}^{+\infty}{x\left( t \right) e^{-st}dt}
+\]
+又称为{\bf 双边拉普拉斯变换}。
+称满足积分收敛条件的$s$的定义域为{\bf 拉普拉斯变换的收敛域}。
+同时将
+\[
+X\left( s \right) =\int_0^{+\infty}{x\left( t \right) e^{-st}dt}
+\]
+称为{\bf 单边拉普拉斯变换}。
+若无特别指明，本笔记LT均指单边拉普拉斯变换。
+相应地称
+\[
+x\left( t \right) =\frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}{X\left( s \right) e^{st}ds}
+\]
+为{\bf 拉普拉斯逆变换}，其中$c$为任意实数，且需满足$s=c+i\omega $始终在LT的收敛域内。
+$x\left( t \right) $及其拉普拉斯变换形式通常记为：
+\[
+x\left( t \right) \overset{\mathscr{L}}{\leftrightarrow}X\left( s \right)
+\]
+\end{definition}
+
+LT是一个自变量为复数的复函数。
+LT相较于FT加入了一个收敛因子$e^{-\sigma}$，收敛域根据具体信号而定，不同的信号有不同的收敛域。
+可以认为LT是广义的FT，只要是信号的LT收敛域包括$\sigma =0$，就有FT。
+LT的优势在于对一个LTI系统，可以将其微分方程和初始条件一并变换成一个代数方程。
+
+至此，我们对于信号或系统有了3个可供描述的空间：1）以微分方程和卷积为代表的时域；2）用FT得到的频域；3）用LT得到的s域。
+
+~
+
+\begin{example}
+求信号$x\left( t \right) =e^{-bt}u\left( t \right) ,t\geqslant 0$的LT，其中$b\in \mathbb{R} $。
+\end{example}
+
+当$b+\sigma <0$时，有$\underset{t\rightarrow +\infty}\lim e^{-\left( b+s \right) t}=0$，则：
+\[
+X\left( s \right) =\frac{1}{b+s}
+\]
+收敛域是$\mathrm{Rs}\left[ s \right] >-b$。
+特别地，当$b<0$时，信号有FT：
+\[
+X\left( \omega \right) =\frac{1}{b+i\omega}
+\]
+
+%============================================================
+\subsection{拉普拉斯变换的性质}
+
+{\bf 线性性}（由于积分的线性性，不证自明）
+\[
+ax\left( t \right) +by\left( t \right) \leftrightarrow aX\left( s \right) +bX\left( s \right)
+\]
+
+{\bf 时延性、频移性}（积分变量做一个变换即可证明）
+\begin{align*}
+&x\left( t-t_1 \right) u\left( t-t_1 \right) \leftrightarrow X\left( s \right) e^{-st_1} \qquad t_1>0 \\
+&e^{s_1t}\cdot x\left( t \right) \leftrightarrow X\left( s-s_1 \right) \qquad s_1\in \mathbb{C}
+\end{align*}
+
+LT中的时移必须时延迟，即时间右移，左移是不存在的，因为LT的单边性使得左移后函数削掉了一部分。
+
+{\bf 时展性}（积分变量做一个变换即可证明）
+\[
+x\left( at \right) \leftrightarrow \frac{1}{a}X\left( \frac{s}{a} \right) \qquad a>0
+\]
+
+LT中没有类似FT中的时间轴反转。
+
+{\bf 三角律}（频移性结合欧拉公式即可证明）
+\begin{align*}
+&x\left( t \right) \cos \omega _1t\leftrightarrow \frac{1}{2}\left[ X\left( s+i\omega _1 \right) +X\left( s-i\omega _1 \right) \right] \\
+&x\left( t \right) \sin \omega _1t\leftrightarrow \frac{i}{2}\left[ X\left( s+i\omega _1 \right) -X\left( s-i\omega _1 \right) \right]
+\end{align*}
+
+{\bf 时域的微分和积分}
+\begin{align*}
+&\frac{d^nx\left( t \right)}{dt^n}\leftrightarrow s^n\cdot X\left( s \right) -\sum_{i=1}^n{s^{n-i}\frac{d^{i-1}x\left( 0^- \right)}{dt^{i-1}}} \\
+&\int_{-\infty}^t{x\left( \tau \right) d\tau}\leftrightarrow \frac{1}{s}\cdot X\left( s \right)
+\end{align*}
+特别地有：
+\begin{align*}
+&x'\left( t \right) \leftrightarrow s\cdot X\left( s \right) -x\left( 0^- \right) \\
+&x''\left( t \right) \leftrightarrow s^2\cdot X\left( s \right) -s\cdot x\left( 0^- \right) -x'\left( 0^- \right)
+\end{align*}
+
+{\bf 频域的微分}
+\[
+t^n\cdot x\left( t \right) \leftrightarrow \left( -1 \right) ^n\frac{d^nX\left( s \right)}{ds^n}
+\]
+
+{\bf 卷积性}
+\[
+x\left( t \right) \ast y\left( t \right) \leftrightarrow X\left( s \right) Y\left( s \right)
+\]
+
+{\bf 初值定理}：已知信号$x\left( t \right) \leftrightarrow X\left( s \right) $，则其n阶导数的初值为：
+\[
+\left. \frac{d^nx\left( t \right)}{dt^n} \right|_{t=0^+}=\underset{s\rightarrow \infty}\lim \left[ s^{n+1}\cdot X\left( s \right) -\sum_{i=1}^n{s^{n+1-i}\frac{d^{i-1}x\left( 0^+ \right)}{dt^{i-1}}} \right]
+\]
+特别地有：
+\begin{align*}
+&x\left( 0 \right) =\underset{s\rightarrow \infty}\lim \left[ s\cdot X\left( s \right) \right] \\
+&x'\left( 0 \right) =\underset{s\rightarrow \infty}\lim \left[ s^2\cdot X\left( s \right) -s\cdot x\left( 0 \right) \right]
+\end{align*}
+
+初值定理使得我们在已知$X\left( s \right) $而未知$x\left( t \right) $的情况，无需通过iLT直接求得$x\left( 0 \right) $。
+其次，由于LT的单边性，我们得到是$x\left( 0 \right) $或$x\left( 0^+ \right) $，不是$x\left( 0^- \right) $！
+
+{\bf 终值定理}：已知信号$x\left( t \right) $的LT为$X\left( s \right) $，如果$x\left( t \right) $存在，则有：
+\[
+\underset{t\rightarrow +\infty}\lim x\left( t \right) =\underset{s\rightarrow 0}\lim \left[ s\cdot X\left( s \right) \right]
+\]
+
+\begin{tcolorbox}
+注意，LT没有FT中的“Duality”和“Parsevel定理”。
+\end{tcolorbox}
+
+
+
+

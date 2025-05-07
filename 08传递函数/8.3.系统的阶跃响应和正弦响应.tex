@@ -1,0 +1,99 @@
+\section{系统的阶跃响应和正弦响应}
+
+本节讨论系统对两类特殊信号——阶跃信号和正弦信号——的响应。
+
+本节要点：
+\begin{itemize}
+    \item 了解LTI系统的阶跃响应的组成部分；
+    \item 了解LTI系统的正弦响应的组成部分。
+\end{itemize}
+
+%============================================================
+\subsection{系统的阶跃响应}
+
+设LTI系统的传递函数$H\left( s \right) =\frac{B\left( s \right)}{A\left( s \right)}$，对单位阶跃信号$u\left( t \right) $的响应：
+\begin{align*}
+&\because x\left( t \right) =u\left( t \right) \longleftrightarrow X\left( s \right) =\frac{1}{s} \\
+&\therefore Y\left( s \right) =\frac{B\left( s \right)}{A\left( s \right)}\cdot \frac{1}{s}=\frac{E\left( s \right)}{A\left( s \right)}+\frac{H\left( 0 \right)}{s} \\
+&\therefore y\left( t \right) =\mathscr{L} ^{-1}\left[ \frac{E\left( s \right)}{A\left( s \right)} \right] +H\left( 0 \right)
+\end{align*}
+可分为两部分：
+\begin{itemize}
+    \item {\bf 瞬态响应}（trancient）部分，记作$y_t\left( t \right) =\mathscr{L} ^{-1}\left[ \frac{E\left( s \right)}{A\left( s \right)} \right] $，根据特征根收敛或发散；
+    \item {\bf 稳态响应}（stread-state）部分，记作$y_s\left( t \right) =H\left( 0 \right) $。
+\end{itemize}
+所以，对于任意LTI系统，可根据极点判断对阶跃信号的稳定性，若稳定，则稳定后系统输出为$H\left( 0 \right) $。
+
+~
+
+一阶LTI系统（即可用一阶微分方程描述的系统）的传递函数：
+\[
+H\left( s \right) =\frac{Q}{s+P}
+\]
+有且仅有一个实数极点，根据以上分析可得：
+\begin{itemize}
+    \item 一阶系统的阶跃响应不会有振荡形式；
+    \item 如果极点$-P<0$，系统响应从0开始收敛增长到$H\left( 0 \right) =Q/P$；
+    \item 如果极点$-P>0$，系统响应从0开始指数发散。
+\end{itemize}
+且$P$ 的大小决定了收敛或发散的速度。
+
+二阶LTI系统（即可用二阶微分方程描述的系统）的传递函数：
+\[
+H\left( s \right) =\frac{Q}{s^2+Ps+R}
+\]
+\begin{itemize}
+    \item 可以通过$s^2+Ps+R=0$判断系统的稳定性；
+    \item 如果系统稳定，最终$H\left( 0 \right) =Q/R$。
+\end{itemize}
+如果系统稳定，则趋于稳定的方式有：
+\begin{itemize}
+    \item 实数极点，指数收敛（两个指数的叠加）到恒定值；
+    \item 重复实数点，带 指数收敛到恒定值；
+    \item 复数极点，必共轭，振荡收敛到恒定值，$P,R$决定了振幅和频率。
+\end{itemize}
+
+%============================================================
+\subsection{系统的正弦响应}
+
+假设LTI系统的传递函数为$H\left( s \right) =\frac{B\left( s \right)}{A\left( s \right)}$，当输入为正弦信号$x\left( t \right) =C\cos \left( \omega _0t \right) ,C\in \mathbb{R} ,\omega _0>0$时，系统响应：
+\begin{align*}
+&\because x\left( t \right) =C\cos \left( \omega _0t \right) \longleftrightarrow X\left( s \right) =\frac{Cs}{s^2+{\omega _0}^2} \\
+&\therefore Y\left( s \right) =\frac{B\left( s \right)}{A\left( s \right)}\cdot \frac{Cs}{s^2+{\omega _0}^2}=\frac{E\left( s \right)}{A\left( s \right)}+\frac{\frac{C}{2}H\left( i\omega _0 \right)}{s-i\omega _0}+\frac{\frac{C}{2}\bar{H}\left( i\omega _0 \right)}{s+i\omega _0} \\
+&\begin{aligned}
+	\therefore y\left( t \right) &=\mathscr{L} ^{-1}\left[ \frac{E\left( s \right)}{A\left( s \right)} \right] +\frac{C}{2}H\left( i\omega _0 \right) e^{i\omega _0}+\frac{C}{2}\bar{H}\left( i\omega _0 \right) e^{-i\omega _0}\\
+	&=\mathscr{L} ^{-1}\left[ \frac{E\left( s \right)}{A\left( s \right)} \right] +C\left| H\left( i\omega _0 \right) \right|\cos \left( \omega _0t+\angle H\left( i\omega _0 \right) \right)\\
+\end{aligned}
+\end{align*}
+同样，响应可分为两部分，决定敛散性的{\bf 瞬态响应}（trancient）部分$y_t$和最终的{\bf 稳态响应}（stread-state）部分$y_s$：
+\begin{align*}
+&y_t\left( t \right) =\mathscr{L} ^{-1}\left[ \frac{E\left( s \right)}{A\left( s \right)} \right] \\
+&y_s\left( t \right) =C\left| H\left( i\omega _0 \right) \right|\cos \left( \omega _0t+\angle H\left( i\omega _0 \right) \right)
+\end{align*}
+如果系统稳定，则输出为输入同频、变幅、延相正弦信号$y\left( t \right) =y_s\left( t \right) $。
+
+%============================================================
+\subsection{三类响应的对比}
+
+我们将三类输入信号（冲激、阶跃、正弦）罗列在一起，如下表。
+
+\begin{table}[h]
+\centering
+% \caption{表头}
+\begin{tabular}{ccc}
+    \toprule
+    输入$x\left( t \right)$ & 输出$y\left( t \right)$\\
+    \midrule
+    $\delta \left( t \right) $ & $\mathscr{L} ^{-1}\left[ \frac{B\left( s \right)}{A\left( s \right)} \right] +0$\\
+    $u\left( t \right) $ & $\mathscr{L} ^{-1}\left[ \frac{E\left( s \right)}{A\left( s \right)} \right] +H\left( 0 \right) $\\
+    $C\cos \left( \omega _0t \right) $ & $\mathscr{L} ^{-1}\left[ \frac{E\left( s \right)}{A\left( s \right)} \right] +C\left| H\left( i\omega _0 \right) \right|\cos \left( \omega _0t+\angle H\left( i\omega _0 \right) \right) $\\
+    \bottomrule
+\end{tabular}
+\end{table}
+
+广义上讲，冲激响应也可以认为是瞬态响应和稳态响应的叠加，只不过稳态响应为0而已。
+我们可以得出结论，对于因果LTI系统，如果系统稳定，则输出在经历一个过程后最终会和输入“一样”，只是会有增益和延时。
+
+
+
+

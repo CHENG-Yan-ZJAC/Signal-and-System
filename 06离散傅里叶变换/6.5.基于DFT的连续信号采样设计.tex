@@ -1,0 +1,50 @@
+\section{基于DFT的连续信号采样设计}
+
+本节简单介绍如何根据设计要求规划采样频率和采样量。
+
+本节要点：
+\begin{itemize}
+    \item 掌握设计采样频率和采样量的方法。
+\end{itemize}
+
+~
+
+对于连续信号的频率分析，如果使用计算机进行频域分析，首先得进行采样。
+采样的两个关键性指标是采样频率$f_{sample}$和采样量$N$。
+
+设计步骤：
+\begin{enumerate}
+    \item 确定一次完整信号的时间$t_0$。
+    \item 确定信号中要考察的频段$f_L\text{～}f_H$，根据该频段决定采样频率，至少为上限的2倍，$f_{sample}=2f_H$。
+    \item 确定采样量$N=f_{sample}\cdot t_0$。
+    \item 据此可以得到DFT后的频域分辨率$\Delta f=f_{sample}/N=1/t_0$。
+\end{enumerate}
+
+注意：
+\begin{itemize}
+    \item 采样时间和频域分辨率是一对矛盾$\Delta f\cdot t_0=1$，采样时间越长，得到的DFT结果越细腻，如果系统设计需要考虑整体对分析结果的时间要求，则只能牺牲DFT细腻程度；
+    \item 在采样时间一定的情况下，采样频率和采样量是一对矛盾$\frac{N}{f_{sample}}=t_0$，一般而言，硬件的ADC时间不能随意选择，而且如果用到芯片提供的FFT函数，采样量也无法选择，只能两者协调。
+\end{itemize}
+
+~
+
+\begin{example}
+假设一个信号时间为50ms，使用芯片开发包中的FFT库函数，库函数对一次FFT的数量要求为256、512或1024，分析DFT结果。
+\end{example}
+
+取512，有：
+\begin{align*}
+&\because t_0=0.05,N=512 \\
+&\therefore \begin{cases}
+	f_{sample}=\frac{N}{t_0}=10240\approx 10\mathrm{kHz}\\
+	\Delta f=\frac{1}{t_0}=20\mathrm{Hz}\\
+\end{cases}
+\end{align*}
+DFT的结果，频域范围为0～5kHz，单位频率为20Hz，同时需要芯片ADC的转化时间达到：
+\[
+t=\frac{t_0}{N}\approx 0.97\mathrm{\mu s}
+\]
+
+
+
+

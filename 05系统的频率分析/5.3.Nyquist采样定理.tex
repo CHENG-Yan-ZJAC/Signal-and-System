@@ -1,0 +1,22 @@
+\section{Nyquist采样定理}
+
+本节简单介绍Nyquist采样定理。
+
+假设信号$x\left( t \right) $，以$T$周期采样，采样后信号记为$x_s\left( t \right) $，则有：
+\[
+x_s\left( t \right) =\sum_{n=-\infty}^{+\infty}{x\left( t \right) \delta \left( t-nT \right)}
+\]
+假设信号的傅里叶变换$X\left( \omega \right) $，则采样信号$x_s\left( t \right) $的傅里叶变换有：
+\[
+X\left( \omega \right) =\sum_{n=-\infty}^{+\infty}{\frac{1}{T}X\left( t-n\omega _s \right)}
+\]
+其中，$\omega _s=2\pi /T$称为{\bf 采样频率}。
+若信号在频域的带宽$B$有限，且采样频率满足$\omega _s>2B$，则采样本身不会对信号有任何影响，而且采样后的信号可以通过低通进行完全恢复，这就是{\bf Nyquist采样定理}。
+
+Nyquist采样定理的前提是信号是有限带宽信号。
+但实际信号因为时域有限而导致频域无限，本身就不满足Nyquist定理的先决条件，所以无论采样频率多高，都会使信号的高频发生混叠。
+通常的做法是先让信号通过一个低通去掉高频，再进行采样。
+
+
+
+
