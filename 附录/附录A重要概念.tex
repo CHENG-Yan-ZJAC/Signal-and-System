@@ -1,0 +1,68 @@
+\chapter{重要概念}
+
+LTI微分方程：
+\[
+y^{\left( n \right)}\left( t \right) +\sum_{i=0}^{n-1}{A_iy^{\left( i \right)}\left( t \right)}=\sum_{i=0}^m{B_ix^{\left( i \right)}\left( t \right)}
+\]
+
+LTI差分方程：
+\[
+y\left[ n \right] +\sum_{i=1}^N{A_iy\left[ n-i \right]}=\sum_{i=0}^M{B_ix\left[ n-i \right]}
+\]
+
+连续LTI卷积模型：
+\[
+y\left( t \right) =x\left( t \right) \ast h\left( t \right) =\begin{cases}
+	0 &t<0\\
+	\int_0^t{x\left( \tau \right) h\left( t-\tau \right) d\tau} &t\geqslant 0\\
+\end{cases}
+\]
+
+离散LTI卷积模型：
+\[
+y\left[ n \right] =x\left[ n \right] \ast h\left[ n \right] =\begin{cases}
+	0 &n=-1,-2,\cdots\\
+	\sum_{i=0}^n{x\left[ i \right] h\left[ n-i \right]} &n=0,1,2,\cdots\\
+\end{cases}
+\]
+
+傅里叶展开：
+\begin{align*}
+&x\left( t \right) =C_0+\sum_{n=-\infty ,n\ne 0}^{+\infty}{\left( C_ne^{i\omega _nt} \right)}=A_0+\sum_{n=1}^{+\infty}{A_n\cos \left( \omega _nt+\varphi _n \right)} \\
+&\begin{cases}
+	C_0=\frac{1}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}{x\left( t \right) dt}\\
+	C_n=\frac{1}{T}\int_{-\frac{T}{2}}^{\frac{T}{2}}{x\left( t \right) e^{-i\omega _nt}dt}\\
+\end{cases}\begin{cases}
+	A_0=C_0\\
+	A_n=2\left| C_n \right|\\
+	\varphi _n=\angle C_n\\
+\end{cases}
+\end{align*}
+
+傅里叶变换CTFT：
+\begin{align*}
+&X\left( \omega \right) =\int_{-\infty}^{+\infty}{x\left( t \right) e^{-i\omega t}dt} \\
+&x\left( t \right) =\frac{1}{2\pi}\int_{-\infty}^{+\infty}{X\left( \omega \right) e^{i\omega t}d\omega}
+\end{align*}
+
+离散信号的傅里叶变换DTFT：
+\begin{align*}
+&X\left( \varOmega \right) =\sum_{n=-\infty}^{+\infty}{x\left[ n \right] e^{-i\varOmega n}} \\
+&x\left[ n \right] =\frac{1}{2\pi}\int_0^{2\pi}{X\left( \varOmega \right) e^{i\varOmega n}d\varOmega}
+\end{align*}
+
+离散傅里叶变换DFT：
+\begin{align*}
+&X\left[ m \right] =\sum_{n=0}^{N-1}{x\left[ n \right] e^{-i\left( \frac{2\pi}{N}m \right) n}} \qquad m=0,1,2,\cdots ,N-1 \\
+&x\left[ n \right] =\frac{1}{N}\sum_{m=0}^{N-1}{X\left[ m \right] e^{i\left( \frac{2\pi}{N}n \right) m}} \qquad n=0,1,2,\cdots ,N-1
+\end{align*}
+
+拉普拉斯变换：
+\begin{align*}
+X\left( s \right) =\int_0^{+\infty}{x\left( t \right) e^{-st}dt} \\
+x\left( t \right) =\frac{1}{2\pi i}\int_{c-i\infty}^{c+i\infty}{X\left( s \right) e^{st}ds}
+\end{align*}
+
+
+
+
